@@ -1,0 +1,1179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Titan Tides &mdash; Import &amp; Export Enquiry</title>
+<meta name="description" content="Tell Titan Tides about your import or export — vehicles, household effects or commercial cargo — and we will quote without the back and forth. About three minutes on your phone.">
+<meta name="theme-color" content="#0B6E6A" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1417" media="(prefers-color-scheme: dark)">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B6E6A'/%3E%3Cpath d='M5 21c2.6 0 2.6-2 5.2-2s2.6 2 5.2 2 2.6-2 5.2-2 2.6 2 5.2 2' stroke='white' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3Cpath d='M8 15h16l-2.2 3.4H10.2z' fill='white'/%3E%3Cpath d='M15 8h2v6h-2z' fill='white'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B6E6A'/%3E%3Cpath d='M5 21c2.6 0 2.6-2 5.2-2s2.6 2 5.2 2 2.6-2 5.2-2 2.6 2 5.2 2' stroke='white' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3Cpath d='M8 15h16l-2.2 3.4H10.2z' fill='white'/%3E%3Cpath d='M15 8h2v6h-2z' fill='white'/%3E%3C/svg%3E">
+
+<!-- WhatsApp and social preview. Once this is live on your domain, change the two
+     URLs below to the real address, and point og:image at a 1200x630 JPG or PNG. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Titan Tides &mdash; Import &amp; Export Enquiry">
+<meta property="og:description" content="Answer a few questions about your shipment and we will quote you, usually within a working day.">
+<meta property="og:url" content="https://www.titantides.com/enquiry/">
+<!-- <meta property="og:image" content="https://www.titantides.com/enquiry/preview.jpg"> -->
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&amp;family=Source+Sans+3:ital,wght@0,400;0,600;1,400&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap">
+
+<style>
+:root{
+  --ground:#F5F7F7; --surface:#FFFFFF; --surface-2:#EDF2F2;
+  --ink:#10212B; --ink-2:#33505C; --muted:#5C6F79; --faint:#8CA0A8;
+  --line:#D7E0E1; --line-2:#C3D0D2;
+  --accent:#0B6E6A; --accent-ink:#06504D; --accent-wash:#E4F1F0;
+  --ok:#1B6B44; --ok-wash:#E2F0E8;
+  --warn:#8A5300; --warn-wash:#FAEEDC;
+  --crit:#96302B; --crit-wash:#F8E6E4;
+  --on-accent:#FFFFFF;
+  --shadow:0 1px 2px rgba(16,33,43,.06), 0 8px 24px -12px rgba(16,33,43,.18);
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0B1417; --surface:#132126; --surface-2:#1A2C33;
+    --ink:#E9F0F0; --ink-2:#BACACE; --muted:#93A7AE; --faint:#6E848C;
+    --line:#22363D; --line-2:#2E464E;
+    --accent:#43B3A9; --accent-ink:#6FCcc2; --accent-wash:#12312F;
+    --ok:#6BC194; --ok-wash:#132C21;
+    --warn:#E0A95E; --warn-wash:#31240F;
+    --crit:#E8938C; --crit-wash:#331917; --on-accent:#06211F;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0B1417; --surface:#132126; --surface-2:#1A2C33;
+  --ink:#E9F0F0; --ink-2:#BACACE; --muted:#93A7AE; --faint:#6E848C;
+  --line:#22363D; --line-2:#2E464E;
+  --accent:#43B3A9; --accent-ink:#6FCCC2; --accent-wash:#12312F;
+  --ok:#6BC194; --ok-wash:#132C21;
+  --warn:#E0A95E; --warn-wash:#31240F;
+  --crit:#E8938C; --crit-wash:#331917; --on-accent:#06211F;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Source Sans 3",ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:16px; line-height:1.5; -webkit-text-size-adjust:100%;
+}
+h1,h2,h3,.display{font-family:Archivo,ui-sans-serif,system-ui,sans-serif; text-wrap:balance}
+.wrap{max-width:660px; margin:0 auto; padding-inline:18px; padding-block:0}
+
+/* ---------- masthead ---------- */
+.mast{position:sticky; top:0; z-index:30; background:var(--surface);
+  border-bottom:1px solid var(--line)}
+.mast .wrap{display:flex; align-items:center; gap:12px; padding-block:11px}
+.mark{display:flex; align-items:baseline; gap:8px; min-width:0}
+.mark b{font-family:Archivo; font-weight:700; font-size:15px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--ink); white-space:nowrap}
+.mark span{font-size:12px; color:var(--faint); letter-spacing:.02em;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.mast .spacer{flex:1}
+.pct{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px;
+  color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap}
+.bar{height:3px; background:var(--surface-2)}
+.bar i{display:block; height:100%; width:0; background:var(--accent);
+  transition:width .35s cubic-bezier(.2,.7,.3,1)}
+
+/* ---------- landing ---------- */
+.hero{padding-block:34px 8px}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--accent); margin:0 0 12px}
+.hero h1{margin:0 0 12px; font-size:clamp(29px,7.6vw,40px); font-weight:700;
+  letter-spacing:-.021em; line-height:1.08}
+.lede{margin:0; color:var(--ink-2); font-size:17px; max-width:46ch}
+.choices{display:grid; gap:12px; margin:26px 0 0}
+.choice{display:grid; grid-template-columns:auto 1fr auto; align-items:center;
+  gap:15px; width:100%; text-align:left; cursor:pointer;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:17px 17px; color:inherit; font:inherit; box-shadow:var(--shadow);
+  transition:border-color .16s, transform .16s}
+.choice:hover{border-color:var(--accent); transform:translateY(-1px)}
+.choice .num{font-family:"IBM Plex Mono",monospace; font-size:13px; font-weight:500;
+  color:var(--accent); background:var(--accent-wash); border-radius:6px;
+  width:28px; height:28px; display:grid; place-items:center}
+.choice strong{display:block; font-family:Archivo; font-weight:600; font-size:18px;
+  letter-spacing:-.01em}
+.choice em{display:block; font-style:normal; color:var(--muted); font-size:14.5px;
+  margin-top:2px}
+.choice .go{color:var(--faint); font-size:19px; line-height:1}
+.foot-note{margin:20px 0 40px; color:var(--faint); font-size:13.5px}
+
+/* ---------- notice panels ---------- */
+.panel{background:var(--surface); border:1px solid var(--line);
+  border-radius:var(--r); padding:16px 17px; margin:0}
+.panel h3{margin:0 0 10px; font-size:13px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--accent-ink); font-weight:600}
+.panel p{margin:0 0 9px; font-size:14.5px; color:var(--ink-2)}
+.panel p:last-child{margin-bottom:0}
+.panel .go-link{display:inline-block; margin-top:4px; padding:9px 14px;
+  border-radius:999px; background:var(--accent); color:var(--on-accent);
+  text-decoration:none; font-size:14px; font-weight:600}
+.panel .go-link:hover{filter:brightness(1.07)}
+
+/* ---------- sections ---------- */
+.sec{margin:30px 0 0}
+.sec-head{display:flex; align-items:baseline; gap:10px; margin:0 0 3px}
+.sec-head .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--faint);
+  font-variant-numeric:tabular-nums}
+.sec-head h2{margin:0; font-size:20px; font-weight:600; letter-spacing:-.012em}
+.sec-sub{margin:0 0 15px; color:var(--muted); font-size:14px}
+.rule{height:1px; background:var(--line); margin:0 0 17px}
+.grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+.f{display:flex; flex-direction:column; gap:6px; min-width:0}
+.f.full{grid-column:1/-1}
+@media(max-width:520px){ .grid{grid-template-columns:1fr} .f.half{grid-column:1/-1} }
+label{font-size:14px; font-weight:600; color:var(--ink); letter-spacing:.005em}
+label .req{color:var(--faint); font-weight:400; font-size:12.5px;
+  letter-spacing:.01em}
+.hint{font-size:13px; color:var(--muted); margin:-1px 0 0}
+input,select,textarea{
+  font:inherit; font-size:16px; color:var(--ink); background:var(--surface);
+  border:1px solid var(--line-2); border-radius:8px; padding:11px 12px; width:100%;
+  min-height:46px; -webkit-appearance:none; appearance:none}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),
+  linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 19px) 21px,calc(100% - 14px) 21px;
+  background-size:5px 5px,5px 5px; background-repeat:no-repeat; padding-right:38px}
+textarea{min-height:92px; resize:vertical; line-height:1.45}
+input,select,textarea,.chips{scroll-margin-bottom:180px; scroll-margin-top:80px}
+.f{scroll-margin-bottom:180px; scroll-margin-top:80px}
+input:focus,select:focus,textarea:focus,button:focus-visible,.chip:focus-visible{
+  outline:2px solid var(--accent); outline-offset:2px}
+input::placeholder,textarea::placeholder{color:var(--faint)}
+.f.bad input,.f.bad select,.f.bad textarea{border-color:var(--crit)}
+.money{display:grid; grid-template-columns:1fr 92px; gap:8px}
+
+/* ---------- chips ---------- */
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:inherit; font-size:14.5px; cursor:pointer; color:var(--ink-2);
+  background:var(--surface); border:1px solid var(--line-2); border-radius:99px;
+  padding:9px 15px; min-height:42px; transition:.14s}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent); border-color:var(--accent);
+  color:var(--on-accent); font-weight:600}
+
+/* ---------- eligibility ---------- */
+.elig{border-radius:var(--r); padding:14px 16px; border:1px solid var(--line);
+  background:var(--surface-2); display:flex; gap:12px; align-items:flex-start}
+.elig .dot{width:9px; height:9px; border-radius:99px; background:var(--faint);
+  margin-top:7px; flex:none}
+.elig b{display:block; font-family:Archivo; font-weight:600; font-size:15px;
+  margin-bottom:3px}
+.elig p{margin:0; font-size:14px; color:var(--ink-2)}
+.elig.is-ok{background:var(--ok-wash); border-color:transparent}
+.elig.is-ok .dot{background:var(--ok)} .elig.is-ok b{color:var(--ok)}
+.elig.is-warn{background:var(--warn-wash); border-color:transparent}
+.elig.is-warn .dot{background:var(--warn)} .elig.is-warn b{color:var(--warn)}
+.elig.is-crit{background:var(--crit-wash); border-color:transparent}
+.elig.is-crit .dot{background:var(--crit)} .elig.is-crit b{color:var(--crit)}
+
+/* ---------- actions ---------- */
+.actions{position:sticky; bottom:0; z-index:25; background:var(--surface);
+  border-top:1px solid var(--line); margin-top:34px;
+  padding-bottom:env(safe-area-inset-bottom)}
+.actions .wrap{padding-block:12px}
+.btn{font:inherit; font-family:Archivo; font-weight:600; font-size:16px; cursor:pointer;
+  border-radius:9px; padding:14px 18px; min-height:50px; width:100%;
+  border:1px solid var(--line-2); background:var(--surface); color:var(--ink);
+  display:flex; align-items:center; justify-content:center; gap:9px; transition:.14s}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent); border-color:var(--accent); color:var(--on-accent)}
+.btn.primary:hover{background:var(--accent-ink); border-color:var(--accent-ink)}
+.resume{margin:22px 0 0}
+.resume-row{display:flex; flex-wrap:wrap; gap:9px; margin-top:12px}
+.resume-row .btn{font-size:14.5px; padding:10px 16px}
+.btn-row{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px}
+.btn-row .btn{font-size:14px; padding:11px 8px; min-height:44px}
+.miss{margin:0 0 10px; font-size:14px; color:var(--crit); background:var(--crit-wash);
+  border-radius:8px; padding:10px 12px; display:none}
+.miss.show{display:block}
+.toast{position:fixed; left:50%; bottom:96px; transform:translate(-50%,14px);
+  background:var(--ink); color:var(--ground); padding:11px 18px; border-radius:99px;
+  font-size:14.5px; font-weight:600; opacity:0; pointer-events:none; z-index:60;
+  transition:.24s}
+.toast.show{opacity:1; transform:translate(-50%,0)}
+.backlink{background:none; border:0; font:inherit; font-size:14px; color:var(--accent);
+  cursor:pointer; padding:14px 0 0; display:inline-flex; gap:7px; align-items:center}
+.refline{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--faint);
+  margin:16px 0 0; letter-spacing:.02em}
+.hidden{display:none !important}
+
+/* ---------- the printed document ---------- */
+#sheet{display:none}
+@media print{
+  body{background:#fff; color:#000; font-size:11pt}
+  .mast,.bar,.actions,.toast,#app,.backlink{display:none !important}
+  #sheet{display:block !important; padding:0}
+  #sheet .ph{border-bottom:2px solid #000; padding-bottom:9px; margin-bottom:16px;
+    display:flex; justify-content:space-between; align-items:flex-end; gap:16px}
+  #sheet .ph b{font-family:Archivo; font-size:15pt; letter-spacing:.1em;
+    text-transform:uppercase}
+  #sheet .ph em{font-style:normal; font-size:9.5pt; display:block; letter-spacing:0;
+    text-transform:none; font-family:"Source Sans 3"}
+  #sheet .ph .r{text-align:right; font-family:"IBM Plex Mono"; font-size:9pt}
+  #sheet .subject{margin:-6px 0 16px; padding-bottom:10px;
+    border-bottom:1px solid #BBB; break-inside:avoid}
+  #sheet .subject b{font-family:Archivo; font-size:16pt; display:block; line-height:1.15}
+  #sheet .subject span{font-size:11pt; color:#333; display:block; margin-top:2px}
+  #sheet h3{font-family:Archivo; font-size:10pt; text-transform:uppercase;
+    letter-spacing:.1em; margin:15px 0 6px; padding-bottom:3px;
+    border-bottom:1px solid #999; break-after:avoid}
+  #sheet table{width:100%; border-collapse:collapse; break-inside:auto}
+  #sheet tr{break-inside:avoid}
+  #sheet td{padding:3.5px 0; vertical-align:top; border-bottom:1px solid #E4E4E4}
+  #sheet td.k{width:42%; padding-right:14px; color:#333}
+  #sheet td.v{font-weight:600}
+  #sheet .note{margin-top:18px; font-size:8.5pt; color:#444; border-top:1px solid #999;
+    padding-top:8px}
+  @page{margin:14mm}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+</style>
+<style>
+/* base reset for a standalone page */
+html{-webkit-text-size-adjust:100%}
+body{margin:0; min-height:100dvh}
+img{max-width:100%; height:auto}
+[hidden]{display:none !important}
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <div class="wrap">
+    <div class="mark"><b>Titan Tides</b><span id="crumb">Freight enquiry</span></div>
+    <div class="spacer"></div>
+    <div class="pct" id="pct"></div>
+  </div>
+  <div class="bar"><i id="barfill"></i></div>
+</div>
+
+<!-- Shown only when the form has not started: a preview window that does not
+     run scripts (WhatsApp's document viewer, an email preview pane), or a
+     browser with JavaScript switched off. The form clears it on load. -->
+<main id="app" class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Open this in your browser</p>
+    <h1>Almost there.</h1>
+    <p class="lede">You are looking at a preview window, which cannot run the
+      form. One tap fixes it.</p>
+  </section>
+  <div class="panel" style="margin-top:20px">
+    <h3>On a phone</h3>
+    <p>Tap the share icon, then <b>Open in Safari</b> or <b>Open in Chrome</b>.
+      The form will load and you can fill it in there.</p>
+    <h3 style="margin-top:16px">Or simply ask us</h3>
+    <p>Message us on WhatsApp and we will send you a link that opens straight
+      into the form: <b>+27 72 380 0587</b>. Or email
+      <b>info@titantides.com</b> and we will take your details that way.</p>
+  </div>
+  <p class="foot-note">Titan Tides Logistics &middot; www.titantides.com</p>
+</main>
+<div id="sheet"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ------------------------------------------------------------------ config */
+/* Put your WhatsApp business number here in full international form, digits
+   only. +27 72 380 0587 becomes 27723800587. */
+const WA_NUMBER = "27723800587";
+
+/* Locks this file to one form. "" = show the Import/Export choice screen.
+   The two single-purpose files set this to "import" or "export". */
+const FORCE = "";
+const EMAIL     = "info@titantides.com";
+
+/* Link to the household volume estimate sheet. Paste the URL between the
+   quotes and the form will offer it on household-effects enquiries.
+   Leave it empty and the form simply says we will send the sheet. */
+const HOUSEHOLD_SHEET = "";
+
+/* ------------------------------------------------------------------ helpers */
+const $ = (s,r=document)=>r.querySelector(s);
+const el = (t,c,x)=>{const n=document.createElement(t); if(c)n.className=c;
+  if(x!=null)n.textContent=x; return n;};
+function blank(x){ return (x===null||x===undefined) ? "" : x; }
+const esc = s => String(blank(s)).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+
+const CUR = ["ZAR","USD","GBP","EUR","AUD","JPY","AED"];
+const YESNO = ["Yes","No"];
+
+/* ------------------------------------------------------------------ schemas */
+const RES = "Returning resident";
+const IMM = "Immigrant";
+const RR  = [RES, IMM];            /* both import under a rebate, on different grounds */
+
+/* the two ways a vehicle comes in without being permanently imported */
+const CARNET = "Carnet de Passage \u2014 a passport for the vehicle";
+const TIP    = "Temporary import \u2014 SARS permit";
+const TEMP   = [CARNET, TIP];
+/* what it is here for. A show, a restoration or a race is a reason for a
+   temporary import, not a separate kind of import. */
+const TEMP_USE = ["Travelling or touring","Show or exhibition",
+                  "Repairs or restoration","Race event","Film or promotional use",
+                  "Testing or evaluation","Other"];
+
+/* cargo types that put a road vehicle on the ground, so the age and
+   left-hand-drive rules apply */
+const VEH = ["Vehicle or vehicles","Motorcycle or motorcycles",
+             "Vehicle plus personal effects"];
+/* everything else goes down the general cargo route */
+const GEN = ["Household effects","Machinery or equipment","Boat or trailer",
+             "Commercial cargo or commodities","Other"];
+/* cargo types where the volume estimate sheet helps */
+const HHG = ["Household effects","Vehicle plus personal effects"];
+
+/* how far we take it. Plain words only — customs officers and clients
+   both read this, and the trade abbreviations confuse more than they help. */
+const DOOR = ["Delivered to the door, with clearance, duties and taxes paid by us",
+              "Delivered to the door, but clearance, duties and taxes on your account"];
+const DOOR_ALL = ["Collection and everything up to loading at the port",
+                  "Port to port — you arrange clearance and delivery at the far end",
+                  ...DOOR,
+                  "Not sure — advise me"];
+
+/* packing: says both what state it is in and who does the work */
+const PACK = ["Already packed or crated","Palletised",
+              "I will pack and crate it myself","Please quote packing and crating",
+              "Loose \u2014 no packing needed","Not sure"];
+
+const CARGO = ["Vehicle or vehicles","Motorcycle or motorcycles",
+               "Vehicle plus personal effects","Household effects",
+               "Machinery or equipment","Boat or trailer",
+               "Commercial cargo or commodities","Other"];
+
+const IMPORT = {
+  key:"import", label:"Import", ref:"IMP",
+  title:"Import enquiry",
+  lede:"A few quick questions and we can price it. No paperwork, no attachments.",
+  intro:null,
+  sections:[
+    {t:"What you are bringing in", s:"This decides almost everything else, so we ask it first.", f:[
+      {id:"cargo", l:"Type of cargo", t:"select", req:1, w:"full", o:CARGO},
+      {id:"reason", l:"Reason for import", t:"select", req:1, w:"full", o:[
+        "Purchase", RES, IMM,
+        "Commercial import \u2014 goods for resale or own use",
+        CARNET, TIP, "Other"]},
+      {id:"reason_other", l:"Tell us more", t:"text", w:"full", showIf:["reason","Other"],
+       ph:"Describe the reason"}
+    ]},
+
+    {t:"The vehicle", showIf:["cargo",VEH], s:"", f:[
+      {id:"year", l:"Year", t:"number", req:1, w:"half", ph:"e.g. 1979", min:1885, max:2030},
+      {id:"qty", l:"How many vehicles", t:"number", w:"half", ph:"1", min:1, max:20},
+      {id:"elig", t:"status", fn:"age"},
+      {id:"make", l:"Make", t:"text", req:1, w:"half", ph:"e.g. Toyota"},
+      {id:"model", l:"Model", t:"text", req:1, w:"half", ph:"e.g. BJ40 Land Cruiser"},
+      {id:"drive", l:"Left or right hand drive", t:"chips", req:1, o:["LHD","RHD"]},
+      {id:"lhdbox", t:"status", fn:"lhd"},
+      {id:"sa_reg", l:"Was it ever registered in South Africa in your name?",
+       t:"chips", w:"full", showIf:["lhd_ask","yes"], o:["Yes","No","Not sure"]},
+      {id:"sa_reg_when", l:"Roughly when?", t:"text", w:"full",
+       showIf:["sa_reg","Yes"], ph:"A year is enough, e.g. 1998"},
+      {id:"runner", l:"Runner or non-runner", t:"chips", req:1, o:["Runner","Non-runner"]},
+      {id:"value", l:"Value", t:"money", req:1, w:"half", ph:"Purchase price or market value"},
+      {id:"vin", l:"VIN or chassis number", t:"text", w:"half", ph:"Optional"},
+      {id:"ece_note", t:"note", showIf:["ece_ask","yes"],
+       head:"Compliance, 1997 model year onwards",
+       body:"A vehicle of the 1997 model year or later that was not built in South Africa may be asked for proof of compliance with the South African compulsory specifications, or an equivalent EEC or ECE standard. Tick it further down if you already hold one."}
+    ]},
+
+    {t:"The cargo", showIf:["cargo",GEN], s:"", f:[
+      {id:"desc", l:"Describe it", t:"textarea", req:1, w:"full",
+       ph:"e.g. 12 pallets of machine spares, or a three bedroom household"},
+      {id:"c_value", l:"Value", t:"money", req:1, w:"half",
+       ph:"For customs and insurance"},
+      {id:"pieces", l:"Number of pieces", t:"number", w:"half", ph:"e.g. 10", min:1},
+      {id:"dims", l:"Dimensions and weight", t:"text", w:"full",
+       ph:"L x W x H and kg — needed for shared container and air"},
+      {id:"hhg_link", t:"note", showIf:["cargo",HHG],
+       head:"Household volume estimate",
+       body:"Household goods are priced on volume, so we cannot quote from a description alone. Our self-survey workbook has a quick estimate tab, a full inventory list and an insurance page for high value items.",
+       link:"Open the self-survey workbook",
+       fallback:"Send this enquiry and we will email you the self-survey workbook. The quick estimate tab gives us the volume we need to start working on it."},
+      {id:"crated", l:"Is it packed, crated or palletised?", t:"chips", w:"full",
+       o:PACK,
+       h:"Tell us if you would rather we quoted the packing, or if you are handling it yourself."},
+      {id:"dg", l:"Batteries, fuel or anything hazardous?", t:"chips",
+       o:["Yes","No","Not sure"],
+       h:"Tell us now rather than at the port. It changes the booking, not just the price."}
+    ]},
+
+    {t:"Your move to South Africa", showIf:["reason",RR],
+     s:"Rough answers are fine for now.", f:[
+      {id:"rr_type", l:"Which applies to you", t:"chips", req:1, showIf:["reason",RES], o:[
+        "I was working abroad","I was studying abroad","Another reason"]},
+      {id:"rr_months", l:"How long were you abroad without a break?", t:"select", req:1,
+       w:"full", showIf:["reason",RES],
+       o:["Less than 6 months","6 to 12 months","1 to 2 years","More than 2 years"]},
+      {id:"prp", l:"Has permanent residence been granted?", t:"chips", req:1, w:"full",
+       showIf:["reason",IMM],
+       o:["Yes, already granted","Applied, waiting","Not yet applied"],
+       h:"The permanent residence permit is what carries the rebate for an immigrant. How long you were abroad does not come into it."},
+      {id:"rr_owned", l:"How long has it been in your name?", t:"select", req:1, w:"half",
+       o:["Less than 6 months","6 to 12 months","1 to 2 years","More than 2 years"]},
+      {id:"rr_licence", l:"Do you hold a valid driver's licence?", t:"chips", req:1,
+       w:"half", o:["Yes","No"]}
+    ]},
+
+    {t:"The temporary import", showIf:["reason",TEMP], s:"", f:[
+      {id:"tip_use", l:"What is it here for?", t:"select", req:1, w:"full", o:TEMP_USE},
+      {id:"tip_use_other", l:"Tell us more", t:"text", w:"full",
+       showIf:["tip_use","Other"], ph:"Describe what it is here for"},
+      {id:"cdp_have", l:"Do you already have the Carnet?", t:"chips", req:1,
+       showIf:["reason",CARNET],
+       o:["Yes, in hand","No \u2014 please arrange one","Not sure if I need one"],
+       h:"A Carnet lets the vehicle come in without paying duties, against a guarantee that it leaves again."},
+      {id:"cdp_addr", l:"Do you have a registered address in the country it is coming from?",
+       t:"chips", req:1, showIf:["reason",CARNET], o:["Yes","No","Not sure"],
+       h:"A Carnet is issued against an address in that country \u2014 a UK Carnet needs a UK address, for example."},
+      {id:"msa", l:"Do you hold a National or International MSA licence?", t:"chips",
+       req:1, showIf:["tip_use","Race event"],
+       o:["Yes, National","Yes, International","No","Applying for one"],
+       h:"Motorsport South Africa licence. A race vehicle needs one, and may only be driven on a track \u2014 it is not registered for road use."},
+      {id:"cdp_stay", l:"How long will it stay in South Africa?", t:"select", req:1,
+       w:"full", o:["Under 3 months","3 to 6 months","6 to 12 months",
+                    "More than a year","Not sure yet"]}
+    ]},
+
+    {t:"Where it is now", s:"", f:[
+      {id:"o_country", l:"Country", t:"text", req:1, w:"half", ph:"e.g. United Kingdom"},
+      {id:"o_city", l:"City or town and postal code", t:"text", req:1, w:"half",
+       ph:"e.g. Southampton, SO14 3PG"},
+      {id:"held", l:"Who is holding it", t:"chips", o:[
+        "Private seller","Dealer","Auction house","My own address","A shipping agent"]},
+      {id:"o_collect", l:"Do you need us to collect it there?", t:"chips", w:"full",
+       o:["Yes, please collect","No, it will be delivered to the port","Not sure"],
+       h:"Collection depends on a truck being able to reach the street. Tell us in the notes if access is tight."}
+    ]},
+
+    {t:"About you", s:"", f:[
+      {id:"resident", l:"Are you a permanent resident of South Africa?", t:"chips", req:1,
+       showIf:["resident_ask","yes"], o:["Yes","No"]},
+      {id:"who", l:"Importing as", t:"chips", req:1, o:["An individual","A company"]},
+      {id:"co_note", t:"note", showIf:["co_perm","yes"],
+       head:"Importing as a company",
+       body:"A company may not permanently import a used car. Motorcycles are fine, and on a temporary import or a Carnet a company may bring a car in. Tell us what you have in mind and we will find the route that works."},
+      {id:"code", l:"Do you have an importer's code?", t:"chips", req:1,
+       showIf:["perm","yes"], o:["Yes","No","Applying for one","Not sure"],
+       h:"Needed once the value including freight and insurance passes R150,000. SARS issues one combined customs code covering both importing and exporting, applied for on the eFiling RLA platform."},
+      {id:"city", l:"Your city and postal code", t:"text", req:1, w:"full",
+       ph:"e.g. Johannesburg, 2196"}
+    ]},
+
+    {t:"After it lands", s:"", f:[
+      {id:"deliver", l:"After clearing", t:"chips", req:1, o:[
+        "Deliver it to me","I will collect it myself"]},
+      {id:"deliver_to", l:"Delivery city and postal code", t:"text", req:1, w:"full",
+       showIf:["deliver","Deliver it to me"], ph:"e.g. Pretoria East, 0081"},
+      {id:"d_access", l:"Can a truck reach the delivery address?", t:"chips", w:"full",
+       showIf:["deliver","Deliver it to me"],
+       o:["Yes, easy access","Tight or narrow street","Complex or estate with restrictions","Not sure"],
+       h:"Delivery is subject to the transporter being able to get into the street. Restricted access may mean a smaller vehicle and an extra charge."},
+      {id:"reg", l:"Would you like us to register it in South Africa?", t:"chips",
+       w:"full", showIf:["reg_ask","yes"],
+       o:["Yes please","No, I will do it myself","Not sure"],
+       h:"We handle registrations in Cape Town. Anywhere else we hand you the full set of papers to register it locally."},
+      {id:"ct_addr", l:"Do you have a Cape Town address?", t:"chips", w:"full",
+       showIf:["reg","Yes please"], o:["Yes","No","Not sure"],
+       h:"A vehicle is registered against an address, and ours is the Cape Town office."},
+      {id:"ctaddr", l:"Can you provide proof of that address?", t:"chips", w:"full",
+       req:1, showIf:["ct_addr","Yes"], o:["Yes","No","Not sure"],
+       h:"A municipal bill or bank confirmation letter, not older than three months. Rental agreements are not accepted."},
+      {id:"ct_note", t:"note", showIf:["ct_addr","No"],
+       head:"Registering outside Cape Town",
+       body:"Not a problem for the shipping. We clear the vehicle and get it to you, then hand over the complete registration pack so you or your agent can register it in your own city. Say so in the notes if you would like us to talk you through it."},
+      {id:"ins", l:"Marine insurance", t:"chips",
+       o:["Please quote","No thank you","Already arranged"]},
+      {id:"packed", l:"Anything packed with the vehicle", t:"chips",
+       showIf:["cargo",VEH], o:[
+        "Nothing","Spare parts","Personal effects","Parts and personal effects"],
+       h:"Anything inside has to be declared. Undeclared items cause delays and penalties."}
+    ]},
+
+    {t:"Your details", s:"", f:[
+      {id:"name", l:"Full name", t:"text", req:1, w:"half", ph:"Name and surname"},
+      {id:"email", l:"Email address", t:"email", req:1, w:"half", ph:"you@example.com"},
+      {id:"phone", l:"Mobile or WhatsApp number", t:"tel", req:1, w:"full",
+       ph:"+27 82 000 0000"}
+    ]},
+
+    {t:"What you already have", s:"Nothing to attach \u2014 just tick what exists.", f:[
+      {id:"docs", l:"Tick all that apply", t:"multi", showIf:["cargo",VEH], o:[
+        "Purchase invoice or proof of purchase",
+        "Foreign registration document in your name",
+        "Photos of the vehicle \u2014 all sides, including the data plate",
+        "Proof of compliance \u2014 SA specifications or EEC / ECE equivalent",
+        "Proof of address","ID or passport","Importer's code letter"]},
+      {id:"docs_c", l:"Tick all that apply", t:"multi", showIf:["cargo",GEN], o:[
+        "Commercial invoice or proof of value","Packing list",
+        "Photos of the cargo","Proof of address","ID or passport",
+        "Company registration","Importer's code letter"]},
+      {id:"docs_rr", l:"And for your time abroad", t:"multi", showIf:["reason",RES], o:[
+        "Letter from my employer abroad on letterhead",
+        "Letter or transcripts from the university",
+        "Proof of the length of my stay abroad","Valid driver's licence"]},
+      {id:"docs_imm", l:"And for your move", t:"multi", showIf:["reason",IMM], o:[
+        "Permanent residence permit","Passport","Valid driver's licence",
+        "Proof of ownership for the time it has been in your name"]}
+    ]},
+
+    {t:"Anything else", s:"", f:[
+      {id:"notes", l:"Notes", t:"textarea", w:"full",
+       ph:"Anything unusual about the cargo, access at collection, or the shipment."}
+    ]}
+  ]
+};
+
+const EXPORT = {
+  key:"export", label:"Export", ref:"EXP",
+  title:"Export enquiry",
+  lede:"No two exports are alike \u2014 each one has its own story. The more of this you can answer, the faster we can quote.",
+  intro:{
+    head:"Read this first",
+    paras:[
+      "The route, the cargo and what you need at the far end all change the price and the process, which is why we ask rather than assume.",
+      "For most destinations we quote within a working day. Where we need rates from an agent in a very different time zone, allow an extra day — we chase them as soon as your details land."
+    ]
+  },
+  sections:[
+    {t:"What you are sending", s:"", f:[
+      {id:"cargo", l:"Type of cargo", t:"select", req:1, w:"full", o:CARGO},
+      {id:"desc", l:"Describe it", t:"textarea", req:1, w:"full",
+       ph:"e.g. 2 x Land Cruiser FJ40 and 8 x Vespa scooters"},
+      {id:"hhg_link", t:"note", showIf:["cargo",HHG],
+       head:"Household volume estimate",
+       body:"Household goods are priced on volume, so we cannot quote from a description alone. Our self-survey workbook has a quick estimate tab, a full inventory list and an insurance page for high value items.",
+       link:"Open the self-survey workbook",
+       fallback:"Send this enquiry and we will email you the self-survey workbook. The quick estimate tab gives us the volume we need to start working on it."},
+      {id:"v_year", l:"Year", t:"number", w:"half", ph:"If a vehicle", min:1885, max:2030},
+      {id:"v_make", l:"Make and model", t:"text", w:"half", ph:"If a vehicle"},
+      {id:"v_drive", l:"Left or right hand drive", t:"chips", o:["LHD","RHD","Not applicable"]},
+      {id:"v_runner", l:"Runner or non-runner", t:"chips", o:["Runner","Non-runner","Not applicable"]},
+      {id:"value", l:"Value of the cargo", t:"money", req:1, w:"half",
+       ph:"For customs and insurance"},
+      {id:"pieces", l:"Number of pieces", t:"number", w:"half", ph:"e.g. 10", min:1},
+      {id:"dims", l:"Dimensions and weight", t:"text", w:"full",
+       ph:"L x W x H and kg — needed for LCL and air, optional for a full container"},
+      {id:"crated", l:"Is it packed, crated or palletised?", t:"chips", w:"full",
+       o:PACK,
+       h:"Tell us if you would rather we quoted the packing, or if you are handling it yourself."},
+      {id:"wood", l:"Any wood packaging, crates or pallets?", t:"chips",
+       o:["Yes","No","Not sure"],
+       h:"All wood packaging has to be certified before export, whatever the destination. Some countries also require the container itself to be fumigated."},
+      {id:"dg", l:"Batteries, fuel or anything hazardous?", t:"chips", o:["Yes","No","Not sure"],
+       h:"Tell us now rather than at the port. Fuel tanks normally have to be near empty."}
+    ]},
+    {t:"Where it goes", s:"", f:[
+      {id:"from_city", l:"Collection town or city", t:"text", req:1, w:"half",
+       ph:"e.g. Somerset West"},
+      {id:"collect", l:"Do you need us to collect?", t:"chips", req:1, w:"half",
+       o:["Yes, please collect","No, I will deliver it"],
+       h:"Collection is subject to the transporter being able to get into the street."},
+      {id:"access", l:"Can a truck reach the address?", t:"chips", w:"full",
+       showIf:["collect","Yes, please collect"],
+       o:["Yes, easy access","Tight or narrow street","Complex or estate with restrictions","Not sure"],
+       h:"Restricted access may mean a smaller vehicle and an extra charge, so it is better known now."},
+      {id:"port", l:"Departure port", t:"chips", o:[
+        "Cape Town","Durban","Port Elizabeth","Advise me"]},
+      {id:"to_country", l:"Destination country", t:"text", req:1, w:"half",
+       ph:"e.g. United Kingdom"},
+      {id:"to_city", l:"Destination city or port", t:"text", req:1, w:"half",
+       ph:"e.g. London Gateway"},
+      {id:"service", l:"How far do you want us to take it", t:"select", req:1, w:"full",
+       o:DOOR_ALL,
+       h:"The two door options differ only in who clears it through customs at the far end and who pays the duties and taxes."},
+      {id:"d_access", l:"Can a truck reach the delivery address?", t:"chips", w:"full",
+       showIf:["service",DOOR],
+       o:["Yes, easy access","Tight or narrow street","Complex or estate with restrictions","Not sure"],
+       h:"Delivery is subject to the transporter being able to get into the street. Restricted access may mean a smaller vehicle and an extra charge."},
+      {id:"consignee", l:"Who receives it", t:"textarea", w:"full",
+       ph:"Name, company, address, email and phone at the destination — optional now, but we need it before booking."}
+    ]},
+    {t:"How it ships", s:"", f:[
+      {id:"mode", l:"Preferred method", t:"chips", o:[
+        "Advise me","20ft container","40ft container","40ft high cube",
+        "LCL — shared container","Air freight","RoRo","Breakbulk"]},
+      {id:"ins", l:"Marine insurance", t:"chips", w:"half",
+       o:["Please quote","No thank you","Already arranged"]},
+      {id:"code", l:"Do you have an exporter's code?", t:"chips", o:[
+        "Yes","No","Not sure","Please apply for me"],
+       h:"Needed once the value including freight and insurance passes R150,000. SARS issues one combined customs code covering both importing and exporting, applied for on the eFiling RLA platform."}
+    ]},
+    {t:"Your details", s:"So we can get the quote to you.", f:[
+      {id:"name", l:"Full name", t:"text", req:1, w:"half", ph:"Name and surname"},
+      {id:"email", l:"Email address", t:"email", req:1, w:"half", ph:"you@example.com"},
+      {id:"phone", l:"Mobile or WhatsApp number", t:"tel", req:1, w:"half", ph:"+27 82 000 0000"},
+      {id:"company", l:"Company", t:"text", w:"half", ph:"Optional"},
+      {id:"city", l:"Which city are you based in?", t:"text", w:"full", ph:"Optional"}
+    ]},
+    {t:"Documents you already have", s:"Do not attach anything yet — tick what exists and we will ask for what we need.", f:[
+      {id:"docs", l:"Tick all that apply", t:"multi", o:[
+        "Commercial invoice or proof of value","Registration document",
+        "Packing list","ID or company registration","Exporter's code letter",
+        "Photos of the cargo"]}
+    ]},
+    {t:"Anything else", s:"", f:[
+      {id:"notes", l:"Notes", t:"textarea", w:"full",
+       ph:"Deadlines, an event you are shipping to, anything unusual about the cargo."}
+    ]}
+  ]
+};
+
+/* ------------------------------------------------------------------- state */
+let FORM = null;
+const V = {};              // answers
+let REF = "";
+let SAVED = null;          // an unfinished draft, offered on the choice screen
+
+function makeRef(prefix){
+  const d = new Date(), p = n => String(n).padStart(2,"0");
+  const stamp = String(d.getFullYear()).slice(2)+p(d.getMonth()+1)+p(d.getDate());
+  const tail = Math.floor(1000+Math.random()*9000);
+  return `ENQ-${prefix}-${stamp}-${tail}`;
+}
+
+/* ------------------------------------------------------------ eligibility */
+const VINTAGE_CUTOFF = 1965;       /* National Road Traffic Act definition */
+
+function STATUS_age(){
+  const y = parseInt(V.year,10);
+  const now = new Date().getFullYear();
+  if(!y || y<1885 || y>now+1)
+    return {cls:"", t:"Enter the year of the vehicle",
+      p:"We will tell you straight away where you stand."};
+  const age = now - y;
+  if(V.tip_use === "Race event")
+    return {cls:"is-ok", t:`${age} years old — no age restriction on a race vehicle`,
+      p:"Race vehicles are not judged on age. What matters is that you hold a National or International MSA licence, and that it is not registered for road use — it may only be driven on a track."};
+  if(TEMP.includes(V.reason))
+    return {cls:"is-ok", t:`${age} years old — the age limits do not apply`,
+      p:"On a temporary import the age rules fall away, because the vehicle is never permanently imported or registered here. It comes in against a guarantee and leaves again within the permitted period."};
+  if(V.reason === RES)
+    return {cls:"is-ok", t:`${age} years old \u2014 the age does not restrict you`,
+      p:"A returning resident is not limited by the age of the vehicle. What matters is how long you were away without a break, and how long the vehicle has been in your name \u2014 the next section covers both."};
+  if(V.reason === IMM)
+    return {cls:"is-ok", t:`${age} years old \u2014 the age does not restrict you`,
+      p:"An immigrant is not limited by the age of the vehicle, and the time spent abroad does not come into it. What matters is your permanent residence permit, and how long the vehicle has been in your name."};
+  if(age >= 40) return {cls:"is-ok", t:`${age} years old \u2014 approval is certain`,
+    p:"Vehicles 40 years and older will definitely receive an approval, and may also qualify for a duty rebate."};
+  if(age >= 20) return {cls:"is-warn", t:`${age} years old \u2014 decided case by case`,
+    p:"Twenty years and older is assessed by an external committee against a set of criteria. We will take you through what is needed and help you put the application together."};
+  return {cls:"is-crit", t:`${age} years old \u2014 we need to talk`,
+    p:"Under twenty years, a permanent import usually only works under a specific rebate such as returning resident or immigrant. Send this through anyway and we will tell you where you stand."};
+}
+
+function STATUS_lhd(){
+  if(V.drive !== "LHD") return null;
+  if(TEMP.includes(V.reason))
+    return {cls:"is-ok", t:"Left hand drive is fine on a temporary import",
+      p:"The restriction applies to permanent import and local registration. A vehicle brought in temporarily may be left hand drive, provided it is not registered here and leaves again within the permitted period."};
+  const y = parseInt(V.year,10);
+  if(y && y <= VINTAGE_CUTOFF)
+    return {cls:"is-ok", t:"Left hand drive, and vintage",
+      p:"A vehicle of this age is treated as vintage, which exempts it from the left hand drive restriction. Nothing further needed from you on this point."};
+  if(V.sa_reg === "Yes")
+    return {cls:"is-warn", t:"Left hand drive, previously registered here",
+      p:"That may open one of the exceptions. We will need the old registration details and proof of ownership to confirm it."};
+  return {cls:"is-warn", t:"Left hand drive \u2014 worth checking early",
+    p:"As a general rule a left hand drive vehicle cannot be registered for normal road use in South Africa. There are exceptions, and we would rather establish which one applies before you buy than afterwards. Answer the question below and we will come back to you on it."};
+}
+const STATUS = {age: STATUS_age, lhd: STATUS_lhd};
+
+/* ---------------------------------------------------------------- rendering */
+function landing(push){
+  if(push !== false) setURL("", true);
+  FORM = null; $("#crumb").textContent = "Freight enquiry";
+  progress();
+  const m = $("#app"); m.innerHTML = "";
+  const h = el("section","hero");
+  h.append(el("p","eyebrow","Vehicles · Household · Commodities"));
+  const t = el("h1"); t.textContent = "Tell us about your shipment."; h.append(t);
+  h.append(el("p","lede","No two shipments are alike — every one has a different story. Tell us yours, on your phone, in about three minutes, and we will do the rest."));
+  m.append(h);
+
+  const c = el("div","choices");
+  [[1,"Import","Bringing a vehicle or cargo into South Africa",IMPORT],
+   [2,"Export","Sending a vehicle or cargo abroad",EXPORT]]
+  .forEach(([n,title,sub,form])=>{
+    const b = el("button","choice"); b.type="button";
+    b.append(el("span","num",String(n)));
+    const mid = el("span"); mid.append(el("strong",null,title), el("em",null,sub));
+    b.append(mid, el("span","go","→"));
+    b.addEventListener("click",()=>openForm(form));
+    c.append(b);
+  });
+  m.append(c);
+
+  if(SAVED){
+    const label = SAVED.form === "import" ? "import" : "export";
+    const p = el("div","panel resume");
+    p.append(el("h3",null,"You have an unfinished " + label + " enquiry"));
+    p.append(el("p",null,"It was saved on this device only. Nothing has been sent to us."));
+    const row = el("div","resume-row");
+    const go = el("button","btn primary"); go.type="button";
+    go.textContent = "Carry on with it";
+    go.addEventListener("click",()=>{ const s = SAVED; SAVED = null; resume(s); });
+    const fresh = el("button","btn"); fresh.type="button";
+    fresh.textContent = "Start again";
+    fresh.addEventListener("click",()=>{ clearDraft(); SAVED = null; landing(false); });
+    row.append(go,fresh); p.append(row);
+    m.append(p);
+  }
+
+  m.append(el("p","foot-note","Around three minutes. Nothing reaches us until you press send at the end."));
+}
+
+function openForm(form, push){
+  if(push !== false) setURL(form.key, true);
+  SAVED = null;                      /* starting fresh replaces any old draft */
+  FORM = form;
+  Object.keys(V).forEach(k=>delete V[k]);
+  REF = makeRef(form.ref);
+  $("#crumb").textContent = form.label;
+  render();
+  window.scrollTo(0,0);
+}
+
+function render(){
+  const m = $("#app"); m.innerHTML = "";
+  const h = el("section","hero");
+  h.append(el("p","eyebrow",FORM.label + " enquiry"));
+  const t = el("h1"); t.textContent = FORM.title; h.append(t);
+  h.append(el("p","lede",FORM.lede));
+  m.append(h);
+
+  if(FORM.intro){
+    const p = el("div","panel"); p.style.marginTop = "22px";
+    p.append(el("h3",null,FORM.intro.head));
+    FORM.intro.paras.forEach(x=>p.append(el("p",null,x)));
+    m.append(p);
+  }
+
+  FORM.sections.forEach((sec,i)=>{
+    const s = el("section","sec");
+    s.dataset.sec = i;
+    const head = el("div","sec-head");
+    head.append(el("span","n",String(i+1).padStart(2,"0")), el("h2",null,sec.t));
+    s.append(head);
+    if(sec.s) s.append(el("p","sec-sub",sec.s));
+    s.append(el("div","rule"));
+    const g = el("div","grid");
+    sec.f.forEach(f=>g.append(field(f)));
+    s.append(g);
+    m.append(s);
+  });
+
+  if(!FORCE){
+    const back = el("button","backlink"); back.type="button";
+    back.textContent = "← Back to import or export";
+    back.addEventListener("click",()=>landing());
+    m.append(back);
+  }
+  m.append(el("p","refline","Your reference · " + REF));
+
+  actions();
+  refresh();
+}
+
+function field(f){
+  if(f.t === "note"){
+    const w = el("div","f full");
+    w.dataset.for = f.id;
+    const p = el("div","panel");
+    if(f.head) p.append(el("h3",null,f.head));
+    if(f.body) p.append(el("p",null,f.body));
+    if(f.link && HOUSEHOLD_SHEET){
+      const a = el("a","go-link", f.link);
+      a.href = HOUSEHOLD_SHEET; a.target = "_blank"; a.rel = "noopener";
+      p.append(a);
+    } else if(f.fallback){
+      p.append(el("p","hint",f.fallback));
+    }
+    w.append(p); return w;
+  }
+  if(f.t === "status"){
+    const w = el("div","f full");
+    w.dataset.for = f.id;
+    const box = el("div","elig"); box.id = "box_"+f.id;
+    box.dataset.fn = f.fn;
+    box.append(el("i","dot"));
+    const b = el("div"); b.append(el("b"), el("p")); box.append(b);
+    w.append(box); return w;
+  }
+  const w = el("div","f " + (f.w==="half" ? "half" : "full"));
+  w.dataset.for = f.id;
+  if(f.l){
+    const lab = el("label"); lab.setAttribute("for","i_"+f.id);
+    lab.textContent = f.l;
+    if(f.req){ const r = el("span","req"," · required"); lab.append(r); }
+    w.append(lab);
+  }
+  if(f.h) w.append(el("p","hint",f.h));
+
+  if(f.t==="chips" || f.t==="multi"){
+    const box = el("div","chips"); box.id = "i_"+f.id;
+    f.o.forEach(o=>{
+      const c = el("button","chip"); c.type="button"; c.textContent=o;
+      c.setAttribute("aria-pressed","false");
+      c.addEventListener("click",()=>{
+        if(f.t==="multi"){
+          const cur = new Set(V[f.id]||[]);
+          cur.has(o) ? cur.delete(o) : cur.add(o);
+          V[f.id] = [...cur];
+        } else {
+          V[f.id] = (V[f.id]===o) ? "" : o;
+        }
+        refresh();
+      });
+      box.append(c);
+    });
+    w.append(box);
+  } else if(f.t==="select"){
+    const s = el("select"); s.id = "i_"+f.id;
+    s.append(new Option("Choose one",""));
+    f.o.forEach(o=>s.append(new Option(o,o)));
+    s.addEventListener("change",()=>{ V[f.id]=s.value; refresh(); });
+    w.append(s);
+  } else if(f.t==="textarea"){
+    const a = el("textarea"); a.id="i_"+f.id; if(f.ph)a.placeholder=f.ph;
+    a.addEventListener("input",()=>{ V[f.id]=a.value; progress(); });
+    w.append(a);
+  } else if(f.t==="money"){
+    const box = el("div","money");
+    const n = el("input"); n.id="i_"+f.id; n.type="text"; n.inputMode="decimal";
+    if(f.ph)n.placeholder=f.ph;
+    const c = el("select"); c.id="i_"+f.id+"_cur";
+    CUR.forEach(x=>c.append(new Option(x,x)));
+    c.value = FORM.key==="import" ? "USD" : "ZAR";
+    V[f.id+"_cur"] = c.value;
+    n.addEventListener("input",()=>{ V[f.id]=n.value; refresh(); });
+    c.addEventListener("change",()=>{ V[f.id+"_cur"]=c.value; });
+    box.append(n,c); w.append(box);
+  } else {
+    const n = el("input"); n.id="i_"+f.id; n.type = f.t==="number" ? "text" : f.t;
+    if(f.t==="number") n.inputMode="numeric";
+    if(f.ph)n.placeholder=f.ph;
+    if(f.t==="email") n.autocomplete="email";
+    if(f.t==="tel") n.autocomplete="tel";
+    n.addEventListener("input",()=>{ V[f.id]=n.value; refresh(); });
+    w.append(n);
+  }
+  return w;
+}
+
+function actions(){
+  const bar = el("div","actions");
+  const wrap = el("div","wrap");
+  const miss = el("p","miss"); miss.id="miss"; wrap.append(miss);
+
+  const wa = el("button","btn primary"); wa.type="button";
+  wa.textContent = "Send on WhatsApp";
+  wa.addEventListener("click",()=>{ if(!check())return;
+    const url = (WA_NUMBER ? "https://wa.me/"+WA_NUMBER+"?text=" : "https://wa.me/?text=")
+      + encodeURIComponent(summary());
+    window.open(url,"_blank","noopener");
+  });
+  wrap.append(wa);
+
+  const row = el("div","btn-row");
+  const pdf = el("button","btn"); pdf.type="button"; pdf.textContent="Save as PDF";
+  pdf.addEventListener("click",()=>{ if(!check())return;
+    buildSheet();
+    /* browsers name the saved PDF after the page title */
+    const {who, what} = headline();
+    const was = document.title;
+    document.title = [REF, who, what].filter(Boolean).join(" - ");
+    setTimeout(()=>{ window.print(); document.title = was; },60);
+  });
+  const mail = el("button","btn"); mail.type="button"; mail.textContent="Email it";
+  mail.addEventListener("click",()=>{ if(!check())return;
+    const {who, what} = headline();
+    const subj = [REF, who, what].filter(Boolean).join(" — ") || REF+" — "+FORM.title;
+    location.href = "mailto:"+EMAIL+"?subject="+encodeURIComponent(subj)
+      +"&body="+encodeURIComponent(summary());
+  });
+  const cp = el("button","btn"); cp.type="button"; cp.textContent="Copy details";
+  cp.addEventListener("click",async ()=>{ if(!check())return;
+    try{ await navigator.clipboard.writeText(summary()); toast("Copied — paste it to us"); }
+    catch(e){ toast("Press and hold to copy from the PDF instead"); }
+  });
+  row.append(pdf,mail,cp); wrap.append(row);
+  bar.append(wrap);
+  $("#app").after(bar);
+}
+
+/* ------------------------------------------------------------ live updates */
+function condOK(c){
+  if(!c) return true;
+  if(c[0] === "lhd_ask"){            /* only ask when the answer is not already clear */
+    const y = parseInt(V.year,10);
+    return V.drive === "LHD" && !TEMP.includes(V.reason)
+           && !(y && y <= VINTAGE_CUTOFF);
+  }
+  /* a vehicle staying here for good. Temporary imports are never registered
+     locally, so registration, codes and permits do not arise. */
+  if(c[0] === "perm") return !TEMP.includes(V.reason);
+  if(c[0] === "reg_ask") return !TEMP.includes(V.reason) && VEH.includes(V.cargo);
+  /* an immigrant has already told us about the residence permit */
+  if(c[0] === "resident_ask") return V.reason !== IMM;
+  /* the company rule bites on permanent imports only */
+  if(c[0] === "co_perm") return V.who === "A company" && !TEMP.includes(V.reason);
+  /* compliance paperwork: 1997 model year onwards, and not built here */
+  if(c[0] === "ece_ask"){
+    const y = parseInt(V.year,10);
+    return VEH.includes(V.cargo) && !TEMP.includes(V.reason) && y >= 1997;
+  }
+  const have = V[c[0]], want = c[1];
+  return Array.isArray(want) ? want.includes(have) : have === want;
+}
+function visible(f){ return condOK(f.showIf); }
+function allFields(){
+  return FORM.sections.filter(sec=>condOK(sec.showIf)).flatMap(s=>s.f);
+}
+
+function refresh(){
+  FORM.sections.forEach((sec,i)=>{
+    const n = document.querySelector(`.sec[data-sec="${i}"]`);
+    if(n) n.classList.toggle("hidden", !condOK(sec.showIf));
+  });
+  allFields().forEach(f=>{
+    if(f.t==="status") return;
+    const w = document.querySelector(`.f[data-for="${f.id}"]`);
+    if(!w) return;
+    w.classList.toggle("hidden", !visible(f));
+    if(f.t==="chips"||f.t==="multi"){
+      [...w.querySelectorAll(".chip")].forEach(c=>{
+        const on = f.t==="multi" ? (V[f.id]||[]).includes(c.textContent)
+                                 : V[f.id]===c.textContent;
+        c.setAttribute("aria-pressed", on ? "true":"false");
+      });
+    }
+  });
+  document.querySelectorAll(".elig[data-fn]").forEach(box=>{
+    const holder = box.closest(".f");
+    const e = STATUS[box.dataset.fn]();
+    holder.classList.toggle("hidden", !e);
+    if(!e) return;
+    box.className = "elig " + e.cls;
+    box.dataset.fn = box.dataset.fn;
+    box.querySelector("b").textContent = e.t;
+    box.querySelector("p").textContent = e.p;
+  });
+  progress();
+}
+
+function required(){ return allFields().filter(f=>f.req && visible(f)); }
+function filled(f){
+  const v = V[f.id];
+  return Array.isArray(v) ? v.length>0 : String(blank(v)).trim()!=="";
+}
+function progress(){
+  if(!FORM){ $("#pct").textContent=""; $("#barfill").style.width="0"; return; }
+  const req = required(), done = req.filter(filled).length;
+  const pc = req.length ? Math.round(done/req.length*100) : 0;
+  $("#pct").textContent = done + " of " + req.length;
+  $("#barfill").style.width = pc + "%";
+}
+function check(){
+  const gaps = required().filter(f=>!filled(f));
+  const m = $("#miss");
+  document.querySelectorAll(".f").forEach(w=>w.classList.remove("bad"));
+  if(!gaps.length){ m.classList.remove("show"); return true; }
+  gaps.forEach(function(f){
+    const n = document.querySelector(`.f[data-for="${f.id}"]`);
+    if(n) n.classList.add("bad");
+  });
+  m.textContent = gaps.length===1
+    ? "One thing still needed: " + gaps[0].l
+    : gaps.length + " things still needed: " + gaps.map(f=>f.l).join(", ");
+  m.classList.add("show");
+  const first = document.querySelector(`.f[data-for="${gaps[0].id}"]`);
+  if(first) first.scrollIntoView({behavior:"smooth",block:"center"});
+  return false;
+}
+
+/* ------------------------------------------------------------- output text */
+function answer(f){
+  let v = V[f.id];
+  if(Array.isArray(v)) v = v.join(", ");
+  v = String(blank(v)).trim();
+  if(!v) return "";
+  if(f.t==="money") v = (V[f.id+"_cur"]||"") + " " + v;
+  return v;
+}
+function rows(){
+  const out = [];
+  FORM.sections.forEach(sec=>{
+    if(!condOK(sec.showIf)) return;
+    const items = [];
+    sec.f.forEach(f=>{
+      if(f.t==="status" || !visible(f)) return;
+      const a = answer(f);
+      if(a) items.push([f.l, a]);
+    });
+    if(items.length) out.push([sec.t, items]);
+  });
+  return out;
+}
+function summary(){
+  const L = [];
+  L.push("*TITAN TIDES — " + FORM.title.toUpperCase() + "*");
+  const {who, what} = headline();
+  if(who || what) L.push("*" + [who, what].filter(Boolean).join(" — ") + "*");
+  L.push(REF);
+  if(FORM.key==="import" && VEH.includes(V.cargo)){
+    if(V.year) L.push("Age check: " + STATUS_age().t);
+    const l = STATUS_lhd();
+    if(l) L.push("Drive: " + l.t);
+  }
+  L.push("");
+  rows().forEach(([t,items])=>{
+    L.push("*" + t + "*");
+    items.forEach(([k,v])=>L.push("• " + k + ": " + v));
+    L.push("");
+  });
+  L.push("Sent from the Titan Tides enquiry form.");
+  return L.join("\n");
+}
+/* what this enquiry is about, in a few words: the client and the commodity.
+   Used at the top of the printed sheet and as the saved file name. */
+function headline(){
+  const who = String(V.name||"").trim();
+  let what = String(V.cargo||"").trim();
+  if(VEH.includes(what)){
+    const v = [V.year, V.make || V.v_make, V.model].filter(x=>String(x||"").trim()).join(" ");
+    if(v) what = v;
+  }
+  return {who, what};
+}
+function buildSheet(){
+  const d = new Date().toLocaleDateString("en-ZA",{day:"2-digit",month:"short",year:"numeric"});
+  const {who, what} = headline();
+  let h = `<div class="ph"><div><b>Titan Tides</b><em>${esc(FORM.title)}</em></div>
+    <div class="r">${esc(REF)}<br>${esc(d)}</div></div>`;
+  if(who || what)
+    h += `<div class="subject"><b>${esc(who || "—")}</b><span>${esc(what || "")}</span></div>`;
+  if(FORM.key==="import" && V.year && VEH.includes(V.cargo)){
+    const e = STATUS_age(), l = STATUS_lhd();
+    h += `<h3>Age check</h3><table><tr><td class="k">Result</td>
+      <td class="v">${esc(e.t)}</td></tr><tr><td class="k">What that means</td>
+      <td class="v" style="font-weight:400">${esc(e.p)}</td></tr>`;
+    if(l) h += `<tr><td class="k">Drive</td><td class="v">${esc(l.t)}</td></tr>`;
+    h += `</table>`;
+  }
+  rows().forEach(([t,items])=>{
+    h += "<h3>"+esc(t)+"</h3><table>";
+    items.forEach(([k,v])=>{ h += `<tr><td class="k">${esc(k)}</td><td class="v">${esc(v)}</td></tr>`; });
+    h += "</table>";
+  });
+  h += `<p class="note">Completed on the Titan Tides enquiry form and sent to ${esc(EMAIL)}.
+    Quoting normally takes one working day. Where we need rates from an agent in a
+    distant time zone, allow one more.</p>`;
+  $("#sheet").innerHTML = h;
+}
+
+let tid;
+function toast(msg){
+  const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(tid); tid = setTimeout(()=>t.classList.remove("show"),2400);
+}
+
+/* ------------------------------------------------- direct links into a form */
+/* titantides.com/quote/?t=import   and   ?t=export   skip the choice screen.
+   ?type=  and  #import  work too, so a mistyped link still lands somewhere. */
+function urlType(){
+  let t = "";
+  try{
+    const q = new URLSearchParams(location.search);
+    t = (q.get("t") || q.get("type") || location.hash.replace(/^#/,"") || "")
+        .toLowerCase().trim();
+  }catch(e){}
+  if(/^i(mport)?s?$/.test(t)) return "import";
+  if(/^e(xport)?s?$/.test(t)) return "export";
+  return "";
+}
+function setURL(t, push){
+  if(FORCE) return;                /* single-purpose file: leave the URL alone */
+  try{
+    const url = t ? location.pathname + "?t=" + t : location.pathname;
+    push ? history.pushState({t:t||null}, "", url)
+         : history.replaceState({t:t||null}, "", url);
+  }catch(e){}                      /* file:// refuses this; harmless */
+}
+window.addEventListener("popstate", ()=>{
+  if(FORCE) return;
+  const t = urlType();
+  t ? openForm(t==="import"?IMPORT:EXPORT, false) : landing(false);
+});
+
+/* ------------------------------------------------------- draft, kept locally */
+const DRAFT = "titantides.enquiry.v1." + (FORCE || "both");
+function saveDraft(){
+  try{ localStorage.setItem(DRAFT, JSON.stringify(
+    {form:FORM?FORM.key:null, v:V, ref:REF})); }catch(e){}
+}
+function clearDraft(){ try{ localStorage.removeItem(DRAFT); }catch(e){} }
+function loadDraft(){
+  try{ return JSON.parse(localStorage.getItem(DRAFT)||"{}"); }catch(e){ return {}; }
+}
+
+/* a draft is only worth offering if something was actually typed into it */
+function hasAnswers(saved){
+  if(!saved || !saved.form || !saved.v) return false;
+  return Object.entries(saved.v).some(([k,v])=>
+    k.slice(-4)!=="_cur" && (Array.isArray(v) ? v.length : String(blank(v)).trim()!==""));
+}
+
+function resume(saved){
+  FORM = saved.form==="import" ? IMPORT : EXPORT;
+  Object.keys(V).forEach(k=>delete V[k]);
+  Object.assign(V, saved.v||{});
+  REF = saved.ref || makeRef(FORM.ref);
+  $("#crumb").textContent = FORM.label;
+  render();
+  allFields().forEach(f=>{
+    const n = document.getElementById("i_"+f.id);
+    if(n && "value" in n && V[f.id]!=null && !Array.isArray(V[f.id])) n.value = V[f.id];
+    const c = document.getElementById("i_"+f.id+"_cur");
+    if(c && V[f.id+"_cur"]) c.value = V[f.id+"_cur"];
+  });
+  setURL(FORM.key, false);
+  refresh();
+  window.scrollTo(0,0);
+}
+
+function start(saved){
+  const want = FORCE || urlType();
+  /* a direct link, or a locked single-purpose file, always opens that form.
+     Pick the draft back up only when it belongs to the same form. */
+  if(want){
+    (hasAnswers(saved) && saved.form === want)
+      ? resume(saved)
+      : openForm(want === "import" ? IMPORT : EXPORT, false);
+    return;
+  }
+  /* no link, no lock: always land on the choice screen. An unfinished draft is
+     offered there rather than reopening itself behind the client's back. */
+  SAVED = hasAnswers(saved) ? saved : null;
+  landing(false);
+}
+/* defer both: the capture-phase handler would otherwise run before the field's
+   own listener has written the value into V, saving the previous keystroke. */
+document.addEventListener("input", ()=>setTimeout(saveDraft,0), true);
+document.addEventListener("click", ()=>setTimeout(saveDraft,0), true);
+start(loadDraft());
+</script>
+</body>
+</html>
