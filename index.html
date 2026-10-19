@@ -203,6 +203,22 @@ input::placeholder,textarea::placeholder{color:var(--faint)}
   font-size:14.5px; font-weight:600; opacity:0; pointer-events:none; z-index:60;
   transition:.24s}
 .toast.show{opacity:1; transform:translate(-50%,0)}
+
+/* ---------- modal (used to flag the Cape-Town-only registration rule) ---------- */
+.modal-veil{position:fixed; inset:0; background:rgba(16,33,43,.52); z-index:70;
+  display:flex; align-items:flex-end; justify-content:center; padding:0;
+  opacity:0; pointer-events:none; transition:.18s}
+.modal-veil.show{opacity:1; pointer-events:auto}
+@media(min-width:560px){ .modal-veil{align-items:center; padding:18px} }
+.modal{background:var(--surface); width:100%; max-width:440px;
+  border-radius:16px 16px 0 0; padding:22px 20px calc(20px + env(safe-area-inset-bottom));
+  box-shadow:var(--shadow); transform:translateY(16px); transition:.18s}
+.modal-veil.show .modal{transform:translateY(0)}
+@media(min-width:560px){ .modal{border-radius:var(--r); padding:22px 22px} }
+.modal b.ttl{display:block; font-family:Archivo; font-weight:700; font-size:17px;
+  margin-bottom:9px; color:var(--warn)}
+.modal p{margin:0 0 16px; font-size:14.5px; color:var(--ink-2); line-height:1.5}
+.modal .btn{width:auto; min-height:44px; padding:11px 20px}
 .backlink{background:none; border:0; font:inherit; font-size:14px; color:var(--accent);
   cursor:pointer; padding:14px 0 0; display:inline-flex; gap:7px; align-items:center}
 .refline{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--faint);
@@ -282,6 +298,13 @@ img{max-width:100%; height:auto}
 </main>
 <div id="sheet"></div>
 <div class="toast" id="toast"></div>
+<div class="modal-veil" id="modalVeil" role="dialog" aria-modal="true" aria-labelledby="modalTtl">
+  <div class="modal">
+    <b class="ttl" id="modalTtl"></b>
+    <p id="modalBody"></p>
+    <button class="btn primary" type="button" id="modalOk">Got it</button>
+  </div>
+</div>
 
 <script>
 /* ------------------------------------------------------------------ config */
@@ -459,6 +482,11 @@ const IMPORT = {
        ph:"e.g. Southampton, SO14 3PG"},
       {id:"held", l:"Who is holding it", t:"chips", o:[
         "Private seller","Dealer","Auction house","My own address","A shipping agent"]},
+      {id:"origin_agent", l:"Do you have your own preferred nominated agent at origin?",
+       t:"chips", w:"full", o:["Yes","No"],
+       h:"If you already work with a clearing or forwarding agent at that end, tell us and we will coordinate the booking with them directly."},
+      {id:"origin_agent_name", l:"Agent name and contact details", t:"text", w:"full",
+       showIf:["origin_agent","Yes"], ph:"Company, contact person, phone or email"},
       {id:"o_collect", l:"Do you need us to collect it there?", t:"chips", w:"full",
        o:["Yes, please collect","No, it will be delivered to the port","Not sure"],
        h:"Collection depends on a truck being able to reach the street. Tell us in the notes if access is tight."}
@@ -605,6 +633,11 @@ const EXPORT = {
        showIf:["service",DOOR],
        o:["Yes, easy access","Tight or narrow street","Complex or estate with restrictions","Not sure"],
        h:"Delivery is subject to the transporter being able to get into the street. Restricted access may mean a smaller vehicle and an extra charge."},
+      {id:"dest_agent", l:"Do you have your own preferred nominated agent at destination?",
+       t:"chips", w:"full", o:["Yes","No"],
+       h:"If you already work with a clearing or forwarding agent at the other end, tell us and we will coordinate the booking with them directly."},
+      {id:"dest_agent_name", l:"Agent name and contact details", t:"text", w:"full",
+       showIf:["dest_agent","Yes"], ph:"Company, contact person, phone or email"},
       {id:"consignee", l:"Who receives it", t:"textarea", w:"full",
        ph:"Name, company, address, email and phone at the destination — optional now, but we need it before booking."}
     ]},
@@ -693,8 +726,8 @@ function STATUS_lhd(){
   if(V.sa_reg === "Yes")
     return {cls:"is-warn", t:"Left hand drive, previously registered here",
       p:"That may open one of the exceptions. We will need the old registration details and proof of ownership to confirm it."};
-  return {cls:"is-warn", t:"Left hand drive \u2014 worth checking early",
-    p:"As a general rule a left hand drive vehicle cannot be registered for normal road use in South Africa. There are exceptions, and we would rather establish which one applies before you buy than afterwards. Answer the question below and we will come back to you on it."};
+  return {cls:"is-warn", t:"Left-Hand Drive Vehicles",
+    p:"In terms of the National Road Traffic Act, Regulation 200(2B), a left-hand drive vehicle may only be legally imported and operated on a South African public road if it was registered in the Republic, in the registered owner's or importer's name, before 1 January 2000. A Letter of Authority (LOA) will not be issued unless satisfactory proof of ownership is supplied."};
 }
 const STATUS = {age: STATUS_age, lhd: STATUS_lhd};
 
@@ -844,6 +877,25 @@ function field(f){
           V[f.id] = (V[f.id]===o) ? "" : o;
         }
         refresh();
+        /* Registration only runs through the Cape Town office. The delivery
+           city was asked a step earlier, so if it is already clearly
+           somewhere else, say so the moment "Yes please" is picked here —
+           not several questions later, after the client has started
+           assuming we've got it covered. */
+        if(f.id==="reg" && V.reg==="Yes please"
+           && String(blank(V.deliver_to)).trim() && !isCapeTown(V.deliver_to)){
+          modal("Registration is a Cape Town service",
+            "We can only assist with vehicle import registrations where the importer has proof of a Cape Town registered address. If that is not the case here, choose “No, I will do it myself” below and we will hand you the complete registration pack to register it in your own city — we still take care of the shipping and clearance either way.");
+        }
+        /* The NRCS will not issue a Letter of Authority for a vehicle that
+           cannot run under its own power, and eNaTis registration of an
+           imported vehicle needs that LOA first — so a non-runner has to
+           be made roadworthy before any of that can happen. Flag it the
+           moment it's picked, not once the paperwork stalls later. */
+        if(f.id==="runner" && V.runner==="Non-runner"){
+          modal("Non-runners need to be roadworthy first",
+            "The NRCS does not issue a Letter of Authority (LOA) for a non-runner. Before an imported vehicle can be registered on eNaTis, it needs to be in running condition and have an approved LOA. If it isn't running yet, let us know — we can talk through getting it to that point.");
+        }
       });
       box.append(c);
     });
@@ -1115,6 +1167,24 @@ let tid;
 function toast(msg){
   const t = $("#toast"); t.textContent = msg; t.classList.add("show");
   clearTimeout(tid); tid = setTimeout(()=>t.classList.remove("show"),2400);
+}
+
+function modal(title, body){
+  $("#modalTtl").textContent = title;
+  $("#modalBody").textContent = body;
+  $("#modalVeil").classList.add("show");
+}
+function closeModal(){ $("#modalVeil").classList.remove("show"); }
+$("#modalOk").addEventListener("click", closeModal);
+$("#modalVeil").addEventListener("click", e=>{ if(e.target.id==="modalVeil") closeModal(); });
+document.addEventListener("keydown", e=>{
+  if(e.key==="Escape" && $("#modalVeil").classList.contains("show")) closeModal();
+});
+
+/* true once a city string clearly says Cape Town — tolerant of case, spacing
+   and the no-space spelling, so "Cape Town, 8001" and "capetown" both match. */
+function isCapeTown(s){
+  return /cape\s*town/i.test(String(blank(s)));
 }
 
 /* ------------------------------------------------- direct links into a form */
