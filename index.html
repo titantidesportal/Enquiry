@@ -217,7 +217,12 @@ input::placeholder,textarea::placeholder{color:var(--faint)}
 @media(min-width:560px){ .modal{border-radius:var(--r); padding:22px 22px} }
 .modal b.ttl{display:block; font-family:Archivo; font-weight:700; font-size:17px;
   margin-bottom:9px; color:var(--warn)}
-.modal p{margin:0 0 16px; font-size:14.5px; color:var(--ink-2); line-height:1.5}
+.modal{max-height:88vh; overflow-y:auto}
+.modal p{margin:0 0 12px; font-size:14.5px; color:var(--ink-2); line-height:1.5}
+.modal ul,.modal ol{margin:0 0 12px; padding-left:22px; font-size:14.5px; color:var(--ink-2); line-height:1.5}
+.modal li{margin-bottom:4px}
+.modal #modalBody{margin-bottom:6px}
+.modal .acts{display:flex; flex-wrap:wrap; gap:10px}
 .modal .btn{width:auto; min-height:44px; padding:11px 20px}
 .backlink{background:none; border:0; font:inherit; font-size:14px; color:var(--accent);
   cursor:pointer; padding:14px 0 0; display:inline-flex; gap:7px; align-items:center}
@@ -301,7 +306,8 @@ img{max-width:100%; height:auto}
 <div class="modal-veil" id="modalVeil" role="dialog" aria-modal="true" aria-labelledby="modalTtl">
   <div class="modal">
     <b class="ttl" id="modalTtl"></b>
-    <p id="modalBody"></p>
+    <div id="modalBody"></div>
+    <div class="acts" id="modalActs"></div>
     <button class="btn primary" type="button" id="modalOk">Got it</button>
   </div>
 </div>
@@ -710,8 +716,8 @@ function STATUS_age(){
     p:"Vehicles 40 years and older will definitely receive an approval, and may also qualify for a duty rebate."};
   if(age >= 20) return {cls:"is-warn", t:`${age} years old \u2014 decided case by case`,
     p:"Twenty years and older is assessed by an external committee against a set of criteria. We will take you through what is needed and help you put the application together."};
-  return {cls:"is-crit", t:`${age} years old \u2014 we need to talk`,
-    p:"Under twenty years, a permanent import usually only works under a specific rebate such as returning resident or immigrant. Send this through anyway and we will tell you where you stand."};
+  return {cls:"is-crit", t:`${age} years old`,
+    p:"Under twenty years, a permanent import usually only works under a specific rebate such as returning resident or immigrant."};
 }
 
 function STATUS_lhd(){
@@ -904,7 +910,8 @@ function field(f){
     const s = el("select"); s.id = "i_"+f.id;
     s.append(new Option("Choose one",""));
     f.o.forEach(o=>s.append(new Option(o,o)));
-    s.addEventListener("change",()=>{ V[f.id]=s.value; refresh(); });
+    s.addEventListener("change",()=>{ V[f.id]=s.value; refresh();
+      if(f.id==="reason" && FORM && FORM.key==="import") checkYoungVehicle(); });
     w.append(s);
   } else if(f.t==="textarea"){
     const a = el("textarea"); a.id="i_"+f.id; if(f.ph)a.placeholder=f.ph;
@@ -928,6 +935,7 @@ function field(f){
     if(f.t==="email") n.autocomplete="email";
     if(f.t==="tel") n.autocomplete="tel";
     n.addEventListener("input",()=>{ V[f.id]=n.value; refresh(); });
+    if(f.id==="year") n.addEventListener("change",checkYoungVehicle);   /* on leaving the field */
     w.append(n);
   }
   return w;
@@ -1169,9 +1177,26 @@ function toast(msg){
   clearTimeout(tid); tid = setTimeout(()=>t.classList.remove("show"),2400);
 }
 
-function modal(title, body){
+function modal(title, body, actions){
   $("#modalTtl").textContent = title;
-  $("#modalBody").textContent = body;
+  /* body is a string, or an array of paragraphs ("text") and lists ({ol:[...]}) */
+  const box = $("#modalBody"); box.textContent = "";
+  (Array.isArray(body) ? body : [body]).forEach(b=>{
+    if(typeof b === "string"){ const p = document.createElement("p"); p.textContent = b; box.append(p); }
+    else { const l = document.createElement("ol");
+      b.ol.forEach(t=>{ const li = document.createElement("li"); li.textContent = t; l.append(li); });
+      box.append(l); }
+  });
+  /* optional buttons: [{label, primary, fn}] — otherwise a single "Got it" */
+  const acts = $("#modalActs"); acts.textContent = "";
+  $("#modalOk").style.display = actions ? "none" : "";
+  (actions||[]).forEach(a=>{
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "btn" + (a.primary ? " primary" : "");
+    b.textContent = a.label;
+    b.addEventListener("click",()=>{ closeModal(); if(a.fn) a.fn(); });
+    acts.append(b);
+  });
   $("#modalVeil").classList.add("show");
 }
 function closeModal(){ $("#modalVeil").classList.remove("show"); }
@@ -1185,6 +1210,39 @@ document.addEventListener("keydown", e=>{
    and the no-space spelling, so "Cape Town, 8001" and "capetown" both match. */
 function isCapeTown(s){
   return /cape\s*town/i.test(String(blank(s)));
+}
+
+/* A permanent import of a car under 40 years old only works under a few
+   routes. Tell the client once they've given a year that puts them there —
+   unless they're a returning resident / immigrant (rebate route), or the
+   import is temporary or for the track, where age isn't the test. */
+let lastYoungWarn = "";
+function checkYoungVehicle(){
+  const y = parseInt(V.year,10), now = new Date().getFullYear();
+  if(!VEH.includes(V.cargo)) return;
+  if(!y || y<1885 || y>now+1) return;
+  if(now - y >= 40) { lastYoungWarn = ""; return; }
+  if(RR.includes(V.reason) || TEMP.includes(V.reason) || V.tip_use==="Race event") return;
+  if(!V.reason) return;
+  const key = V.year + "|" + V.reason;
+  if(key === lastYoungWarn) return;                 /* once per year/reason pair */
+  lastYoungWarn = key;
+  modal("Permanent import of a vehicle under 40 years old", [
+    "To qualify for an ITAC Vintage & Collector\u2019s Vehicle import permit, a car must typically meet one of these rules:",
+    {ol:[`Be 40 years or older (manufactured in ${now-40} or earlier).`,
+         "Hold extraordinary, proven historical value as a rare collector\u2019s piece."]},
+    "Cars in the classic category (between 20 and 40 years old) are assessed on their own merit, with supporting documents proving their collectibility.",
+    "The only other grounds on which a permanent import approval is granted are:",
+    {ol:["Returning Resident / Immigrant","Inheritance","Racecar (track only)"]}
+  ], [
+    {label:"Continue", primary:true},
+    {label:"Change reason for import", fn:()=>{
+      const r = $("#i_reason"); if(r){ r.scrollIntoView({block:"center"}); r.focus(); } }},
+    {label:"Abandon enquiry", fn:()=>{
+      Object.keys(V).forEach(k=>delete V[k]); lastYoungWarn = "";
+      clearDraft(); SAVED = null; landing(false);
+      setTimeout(clearDraft,50); window.scrollTo(0,0); }}
+  ]);
 }
 
 /* ------------------------------------------------- direct links into a form */
